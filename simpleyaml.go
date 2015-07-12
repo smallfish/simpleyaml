@@ -43,7 +43,7 @@ func NewYaml(body []byte) (*Yaml, error) {
 	var val interface{}
 	err := yaml.Unmarshal(body, &val)
 	if err != nil {
-		return nil, errors.New("unmarshal []byte to yaml failed")
+		return nil, errors.New("unmarshal []byte to yaml failed: " + err.Error())
 	}
 	return &Yaml{val}, nil
 }
