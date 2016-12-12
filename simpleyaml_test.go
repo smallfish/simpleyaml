@@ -7,6 +7,7 @@ import (
 var data = []byte(`
 name: smallfish
 age: 99
+float: 3.14159
 bool: true
 emails:
    - xxx@xx.com
@@ -47,6 +48,22 @@ func TestString(t *testing.T) {
 	t.Log(v)
 	if v != "smallfish" {
 		t.Fatal("match name failed")
+	}
+}
+
+func TestFloat(t *testing.T) {
+	y, err := NewYaml(data)
+	if err != nil {
+		t.Fatal("init yaml failed")
+	}
+
+	v, err := y.Get("float").Float()
+	if err != nil {
+		t.Fatal("get yaml failed", err)
+	}
+	t.Log(v)
+	if v != 3.14159 {
+		t.Fatal("match float failed")
 	}
 }
 

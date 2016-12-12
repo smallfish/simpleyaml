@@ -121,6 +121,13 @@ func (y *Yaml) String() (string, error) {
 	return "", errors.New("type assertion to string failed")
 }
 
+func (y *Yaml) Float() (float64, error) {
+	if v, ok := (y.data).(float64); ok {
+		return v, nil
+	}
+	return 0, errors.New("type assertion to float64 failed")
+}
+
 // Map type asserts to `map`
 func (y *Yaml) Map() (map[interface{}]interface{}, error) {
 	if m, ok := (y.data).(map[interface{}]interface{}); ok {

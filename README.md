@@ -17,6 +17,7 @@ go get -u github.com/smallfish/simpleyaml
 var data = []byte(`
 name: smallfish
 age: 99
+float: 3.14159
 bool: true
 emails:
    - xxx@xx.com
@@ -42,6 +43,7 @@ if err != nil {
 fmt.Println("name:", name)
 
 // y.Get("age").Int()
+// y.Get("float").Float()
 // y.Get("bool").Bool()
 // y.Get("bb").Get("cc").Get("ee").String()
 // y.Get("bb").Get("cc").Get("ee").GetIndex(1).Int()
