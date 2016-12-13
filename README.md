@@ -2,7 +2,7 @@
 
 a Go package to interact with arbitrary YAML, similar as [go-simplejson](https://github.com/bitly/go-simplejson).
 
-[![GoDoc](https://godoc.org/github.com/smallfish/simpleyaml?status.svg)](http://godoc.org/github.com/smallfish/simpleyaml)
+[![GoDoc](https://godoc.org/github.com/smallfish/simpleyaml?status.svg)](http://godoc.org/github.com/smallfish/simpleyaml) [![Build Status](https://travis-ci.org/smallfish/simpleyaml.png)](https://travis-ci.org/smallfish/simpleyaml)
 
 #### INSTALL
     
