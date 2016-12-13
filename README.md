@@ -7,8 +7,7 @@ a Go package to interact with arbitrary YAML, similar as [go-simplejson](https:/
 #### INSTALL
     
 ```bash
-go get -u gopkg.in/yaml.v2 # required
-go get -u github.com/smallfish/simpleyaml
+$ go get -u -v github.com/smallfish/simpleyaml
 ```
 
 #### EXAMPLE
