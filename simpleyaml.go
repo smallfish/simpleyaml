@@ -89,12 +89,12 @@ func (y *Yaml) IsArray() bool {
 }
 
 // return the size of array
-func (y *Yaml)GetArraySize() (int, error ) {
+func (y *Yaml) GetArraySize() (int, error) {
 	a, err := y.Array()
 	if err != nil {
 		return 0, err
 	}
-	return len( a ), nil
+	return len(a), nil
 }
 
 // GetIndex returns a pointer to a new `Yaml` object.
@@ -152,22 +152,22 @@ func (y *Yaml) Map() (map[interface{}]interface{}, error) {
 }
 
 // Check if it is a map
-func (y *Yaml)IsMap() bool {
+func (y *Yaml) IsMap() bool {
 	_, err := y.Map()
 	return err == nil
 }
 
 // Get all the keys of the map
-func (y *Yaml)GetMapKeys() ([]string,error) {
+func (y *Yaml) GetMapKeys() ([]string, error) {
 	m, err := y.Map()
 
 	if err != nil {
 		return nil, err
 	}
-	keys := make([]string, 0 )
+	keys := make([]string, 0)
 	for k, _ := range m {
-		if s,ok := k.(string) ; ok {
-			keys = append( keys, s )
+		if s, ok := k.(string); ok {
+			keys = append(keys, s)
 		}
 	}
 	return keys, nil
