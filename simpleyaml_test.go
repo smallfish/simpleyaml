@@ -138,3 +138,22 @@ func TestArray(t *testing.T) {
 		t.Fatal("emails length not equal 2")
 	}
 }
+
+
+func TestMap(t *testing.T) {
+	y, err := NewYaml( data )
+	if err != nil {
+		t.Fatal("init yaml failed")
+	}
+	if !y.IsMap() {
+		t.Fatal( "map check failed")
+	}
+
+	keys, err := y.GetMapKeys()
+	if err != nil {
+		t.Fatal( "get keys from map is failed" )
+	}
+	if len( keys ) != 6 {
+		t.Fatal( "fail to check number of keys")
+	}
+}
