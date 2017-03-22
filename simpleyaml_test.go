@@ -9,6 +9,7 @@ name: smallfish
 age: 99
 float: 3.14159
 bool: true
+0: IntKey
 emails:
    - xxx@xx.com
    - yyy@yy.com
@@ -48,6 +49,22 @@ func TestString(t *testing.T) {
 	t.Log(v)
 	if v != "smallfish" {
 		t.Fatal("match name failed")
+	}
+}
+
+func TestStringFromIntKey(t *testing.T) {
+	y, err := NewYaml(data)
+	if err != nil {
+		t.Fatal("init yaml failed")
+	}
+	v, err := y.Get(0).String()
+	if err != nil {
+		t.Fatal("get yaml failed")
+	}
+
+	t.Log(v)
+	if v != "IntKey" {
+		t.Fatal("match IntKey failed")
 	}
 }
 
@@ -156,3 +173,4 @@ func TestMap(t *testing.T) {
 		t.Fatal("fail to check number of keys")
 	}
 }
+

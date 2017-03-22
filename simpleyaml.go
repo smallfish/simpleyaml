@@ -52,7 +52,7 @@ func NewYaml(body []byte) (*Yaml, error) {
 //
 // Example:
 //      y.Get("xx").Get("yy").Int()
-func (y *Yaml) Get(key string) *Yaml {
+func (y *Yaml) Get(key interface{}) *Yaml {
 	m, err := y.Map()
 	if err == nil {
 		if val, ok := m[key]; ok {
@@ -66,7 +66,7 @@ func (y *Yaml) Get(key string) *Yaml {
 //
 // Example:
 //      y.GetPath("bb", "cc").Int()
-func (y *Yaml) GetPath(branch ...string) *Yaml {
+func (y *Yaml) GetPath(branch ...interface{}) *Yaml {
 	yin := y
 	for _, p := range branch {
 		yin = yin.Get(p)
