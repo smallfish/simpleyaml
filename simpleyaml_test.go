@@ -174,3 +174,18 @@ func TestMap(t *testing.T) {
 	}
 }
 
+func TestIsFound(t *testing.T) {
+	y, err := NewYaml(data)
+	if err != nil {
+		t.Fatal("init yaml failed")
+	}
+
+	if !y.Get("name").IsFound() { // name is exists
+		t.Fatal("found name failed")
+	}
+
+	if y.Get("xx").IsFound() { // xx is not exists
+		t.Fatal("found xx failed")
+	}
+
+}
