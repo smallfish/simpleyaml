@@ -48,6 +48,14 @@ func NewYaml(body []byte) (*Yaml, error) {
 	return &Yaml{val}, nil
 }
 
+// Check if the given branch was found
+func (y *Yaml) IsFound() bool {
+	if y.data == nil {
+		return false
+	}
+	return true
+}
+
 // Get returns a pointer to a new `Yaml` object for `key` in its `map` representation
 //
 // Example:
