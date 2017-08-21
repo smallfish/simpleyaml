@@ -141,6 +141,23 @@ func TestGetPath(t *testing.T) {
 	}
 }
 
+func TestGetAllPaths(t *testing.T) {
+	y, err := NewYaml(data)
+	if err != nil {
+		t.Fatal("init yaml failed")
+	}
+
+	v := y.GetAllPaths()
+	if err != nil {
+		t.Fatal("get yaml failed")
+	}
+
+	t.Log(v)
+	if len(v) != 10 {
+		t.Fatal("Number of paths do not match number or real paths.")
+	}
+}
+
 func TestArray(t *testing.T) {
 	y, err := NewYaml(data)
 	if err != nil {
