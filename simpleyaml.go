@@ -31,15 +31,13 @@ package simpleyaml
 
 import (
 	"errors"
-	"strconv"
 	"gopkg.in/yaml.v2"
-	"bytes"
 )
 
 type Yaml struct {
 	data interface{}
 }
-var array_of_paths = make([]string, 0)
+
 // NewYaml returns a pointer to a new `Yaml` object after unmarshaling `body` bytes
 func NewYaml(body []byte) (*Yaml, error) {
 	var val interface{}
@@ -181,56 +179,4 @@ func (y *Yaml) GetMapKeys() ([]string, error) {
 		}
 	}
 	return keys, nil
-}
-
-// GetAllPaths retrieves all possible paths in the YAML file
-//
-// Example:
-//      y.GetAllPaths(yaml_file, array_of_strings)
-func GetAllExistingPaths(y *Yaml, path_slice []string) []string {
-	if y.IsMap() {
-		keys, err := y.GetMapKeys()
-		if err != nil {
-			panic(err)
-		}
-		for k, _ := range keys {
-			if k != 0 {
-				path_slice = path_slice[:len(path_slice)-1]
-			}
-			path_slice = append(path_slice, keys[k])
-			GetAllExistingPaths(y.Get(keys[k]), path_slice)
-		}
-	} else if y.IsArray() {
-		arr, err := y.Array()
-		if err != nil {
-			panic(err)
-		}
-		for k, _ := range arr {
-			if k != 0 {
-				path_slice = path_slice[:len(path_slice)-1]
-			}
-			path_slice = append(path_slice, strconv.Itoa(k))
-			GetAllExistingPaths(y.GetIndex(k), path_slice)
-		}
-	} else {
-		var buffer bytes.Buffer
-		for k, _ := range path_slice {
-				if k == len(path_slice)-1 {
-				  buffer.WriteString(path_slice[k])
-				}else{
-				  buffer.WriteString(path_slice[k]+".")
-				}
-		}
-		array_of_paths = append(array_of_paths, buffer.String())
-	}
-	return array_of_paths
-}
-
-// Helper function to invoke GetAllExistingPaths
-func (y *Yaml) GetAllPaths() []string {
-	yin := y
-	all_paths := make([]string, 0)
-	initial_path := make([]string, 0)
-	all_paths = GetAllExistingPaths(yin, initial_path)
-	return all_paths
 }
