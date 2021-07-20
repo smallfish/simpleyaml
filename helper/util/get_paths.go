@@ -1,13 +1,16 @@
 package util
 
 import (
+	"bytes"
 	"errors"
+	"strconv"
+
 	"github.com/smallfish/simpleyaml"
-  "strconv"
-  "bytes"
 )
 
-var ArrayOfPaths = make([]string, 0)
+var (
+	ArrayOfPaths = make([]string, 0)
+)
 
 func GetAllExistingPaths(y *simpleyaml.Yaml, PathSlice []string) ([]string, error) {
 	if y.IsMap() {
@@ -15,10 +18,12 @@ func GetAllExistingPaths(y *simpleyaml.Yaml, PathSlice []string) ([]string, erro
 		if err != nil {
 			return nil, errors.New("Retrieving map keys failed")
 		}
+
 		for k, _ := range keys {
 			if k != 0 {
 				PathSlice = PathSlice[:len(PathSlice)-1]
 			}
+
 			PathSlice = append(PathSlice, keys[k])
 			GetAllExistingPaths(y.Get(keys[k]), PathSlice)
 		}
@@ -27,24 +32,28 @@ func GetAllExistingPaths(y *simpleyaml.Yaml, PathSlice []string) ([]string, erro
 		if err != nil {
 			return nil, errors.New("Retrieving array failed")
 		}
+
 		for k, _ := range arr {
 			if k != 0 {
 				PathSlice = PathSlice[:len(PathSlice)-1]
 			}
+
 			PathSlice = append(PathSlice, strconv.Itoa(k))
 			GetAllExistingPaths(y.GetIndex(k), PathSlice)
 		}
 	} else {
 		var buffer bytes.Buffer
 		for k, _ := range PathSlice {
-				if k == len(PathSlice)-1 {
-				  buffer.WriteString(PathSlice[k])
-				}else{
-				  buffer.WriteString(PathSlice[k]+"/")
-				}
+			if k == len(PathSlice)-1 {
+				buffer.WriteString(PathSlice[k])
+			} else {
+				buffer.WriteString(PathSlice[k] + "/")
+			}
 		}
+
 		ArrayOfPaths = append(ArrayOfPaths, buffer.String())
 	}
+
 	return ArrayOfPaths, nil
 }
 
@@ -52,11 +61,12 @@ func GetAllExistingPaths(y *simpleyaml.Yaml, PathSlice []string) ([]string, erro
 //
 // Example:
 //      util.GetAllPaths(*Yaml)
-func GetAllPaths(y *simpleyaml.Yaml) ([]string, error)  {
+func GetAllPaths(y *simpleyaml.Yaml) ([]string, error) {
 	InitialPath := make([]string, 0)
-	AllPaths, err :=  GetAllExistingPaths(y, InitialPath)
+	AllPaths, err := GetAllExistingPaths(y, InitialPath)
 	if err != nil {
 		return nil, errors.New("Retrieving paths failed")
 	}
+
 	return AllPaths, nil
 }
